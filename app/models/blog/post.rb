@@ -82,7 +82,7 @@ protected
       case flag.to_i
       when 1
         if category = Blog::Tag.categories.find_by_id(category_id)
-          category.taggings.create(:post => self) rescue nil
+          Blog::Tagging.find_or_create_by_post_id_and_tag_id(self.id, category.id)
         end
       when 0
         self.taggings.for_categories.where(:tag_id => category_id).destroy_all
