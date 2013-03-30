@@ -1,0 +1,37 @@
+
+.page-header
+  = link_to 'Add new blog post', new_admin_blog_post_path, :class => 'btn pull-right'
+  %h2 Blog Posts
+
+%table.table.table-hover.table-bordered
+  %tbody.sortable
+    - @posts.each do |post|
+      %tr{:id => dom_id(post)}
+        %td
+          .icon{:class => "#{(post.is_published?? 'published' : 'draft')}"}
+            - if !params[:category].present? && @posts.count > 1
+              .dragger
+                %span &#8645;
+        %td.main
+          .item-title
+            = link_to post.title.titleize, edit_admin_blog_post_path(@site, post)
+            / = render :partial => '/cms_admin/categories/categories', :object => post
+          .item-meta
+            = "Published #{time_ago_in_words(post.created_at)} ago"
+            
+            -if post.author.present? 
+              by 
+              %strong= post.author
+            
+            -if post.tags.count > 0 
+              Tagged with:
+              -post.tags.each do |tag| 
+                %span{:class=>"tag"} 
+                  = tag.name
+            
+        %td
+          .btn-group
+          -unless ComfyBlog.disqus_enabled?
+            = link_to pluralize(post.comments.count, 'comment'), admin_blog_post_comments_path(post)
+            = link_to 'Edit', edit_admin_blog_post_path(post), :class => 'btn btn-small'
+            = link_to 'Delete', admin_blog_post_path(post), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => 'btn btn-small btn-danger'

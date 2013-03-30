@@ -1,0 +1,11 @@
+.page-header
+  %h2 
+    Comments 
+    -if @post
+      for 
+      = @post.title
+
+%table.table.table-hover.table-bordered
+  %tbody.sortable
+    - @comments.each do |comment|
+      =render :partial => 'comment', :object => comment
