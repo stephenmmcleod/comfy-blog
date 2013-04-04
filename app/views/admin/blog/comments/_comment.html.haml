@@ -1,52 +1,22 @@
 
-  <div class='item'>
-    <div class='icon' style="background-image:url(http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment.email.downcase)%>?s=28&d=identicon)"></div>
-    <div class='action_links'>
-      <% unless comment.is_published? %>
-        <%= link_to 'Publish', publish_admin_blog_comment_path(comment), :remote => true, :method => :put %>
-      <% end %>
-      <%= link_to 'Delete', admin_blog_comment_path(comment), :remote => true, :method => 'delete', :confirm => 'Are you sure?' %>
-    </div>
-    <div class='label'>
-      <div class='sublabel'>
-        <em>
-          <%= time_ago_in_words(comment.created_at) %> ago
-          <strong><%= mail_to(comment.email, comment.author) %></strong> wrote
-        </em>
-      </div>
-    </div>
-    <div class='content'>
-      <%= simple_format(comment.content.to_s) %>
-    </div>
-  </div>
-</li>
-
 %tr{:id => dom_id(comment)}
   %td
-    .icon{:class => "#{(comment.is_published?? 'published' : 'draft')}"}
-      - if !params[:category].present? && comments.count > 1
+    .icon{:class => 'icon', :style => "background-image:url(http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(comment.email.downcase)}?s=28&d=identicon)"}
+      - if !params[:category].present? && @comments.count > 1
         .dragger
           %span &#8645;
   %td.main
     .item-title
-      = link_to comment.title.titleize, edit_admin_blog_comment_path(@site, comment)
-      / = render :partial => '/cms_admin/categories/categories', :object => comment
+      = simple_format(comment.content.to_s)
     .item-meta
-      = "Published #{time_ago_in_words(comment.created_at)} ago"
-      
-      -if comment.author.present? 
-        by 
-        %strong= comment.author
-      
-      -if comment.tags.count > 0 
-        Tagged with:
-        -comment.tags.each do |tag| 
-          %span{:class=>"tag"} 
-            = tag.name
+      = "Posted by"
+      %strong 
+        = mail_to(comment.email, comment.author) 
+      =" #{time_ago_in_words(comment.created_at)} ago"
       
   %td
     .btn-group
     -unless ComfyBlog.disqus_enabled?
-      = link_to pluralize(comment.comments.count, 'comment'), admin_blog_comment_comments_path(comment)
-      = link_to 'Edit', edit_admin_blog_comment_path(comment), :class => 'btn btn-small'
-      = link_to 'Delete', admin_blog_comment_path(comment), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => 'btn btn-small btn-danger'
+      - unless comment.is_published? 
+        = link_to 'Publish', publish_admin_blog_comment_path(comment), :remote => true, :method => :put 
+      = link_to 'Delete', admin_blog_comment_path(comment), :remote => true, :method => 'delete', :confirm => 'Are you sure?'
