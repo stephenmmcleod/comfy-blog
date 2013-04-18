@@ -14,7 +14,7 @@
                 %span &#8645;
         %td.main
           .item-title
-            = link_to post.title.titleize, edit_admin_blog_post_path(@site, post)
+            = link_to post.title.titleize, edit_admin_blog_post_path(post)
             / = render :partial => '/cms_admin/categories/categories', :object => post
           .item-meta
             = "Published #{time_ago_in_words(post.created_at)} ago"
