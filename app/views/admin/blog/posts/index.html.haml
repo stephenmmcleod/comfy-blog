@@ -33,5 +33,5 @@
           .btn-group
           -unless ComfyBlog.disqus_enabled?
             = link_to pluralize(post.comments.count, 'comment'), admin_blog_post_comments_path(post)
-            = link_to 'Edit', edit_admin_blog_post_path(post), :class => 'btn btn-small'
-            = link_to 'Delete', admin_blog_post_path(post), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => 'btn btn-small btn-danger'
+          = link_to 'Edit', edit_admin_blog_post_path(post), :class => 'btn btn-small'
+          = link_to 'Delete', admin_blog_post_path(post), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => 'btn btn-small btn-danger'
