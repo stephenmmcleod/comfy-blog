@@ -1,0 +1,8 @@
+.page-header
+  = link_to 'Add new blog tag', {:action => :new}, :class => 'btn pull-right'
+  %h2 Blog Tags
+
+%table.table.table-hover.table-bordered
+  %tbody.sortable
+    - @tags.each do |tag|
+      = render :partial => 'tag', :object => tag

@@ -1,0 +1,7 @@
+= form.text_field :name
+= form.check_box :is_category
+.form-actions
+  - if @tag.is_category
+    = form.submit @tag.new_record?? 'Create category' : 'Update category', :class => 'btn btn-primary'
+  - else
+    = form.submit @tag.new_record?? 'Create tag' : 'Update tag', :class => 'btn btn-primary'
