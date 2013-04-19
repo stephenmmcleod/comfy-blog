@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc."]
-  s.date = "2013-04-18"
+  s.date = "2013-04-19"
   s.description = ""
   s.email = "oleg@twg.ca"
   s.extra_rdoc_files = [
@@ -44,15 +44,15 @@ Gem::Specification.new do |s|
     "app/views/admin/blog/comments/destroy.js.erb",
     "app/views/admin/blog/comments/index.html.haml",
     "app/views/admin/blog/comments/publish.js.erb",
-    "app/views/admin/blog/posts/_post_form.html.haml",
+    "app/views/admin/blog/posts/_form.html.haml",
     "app/views/admin/blog/posts/edit.html.haml",
     "app/views/admin/blog/posts/index.html.haml",
     "app/views/admin/blog/posts/new.html.haml",
-    "app/views/admin/blog/tags/_form.html.erb",
-    "app/views/admin/blog/tags/_tag.html.erb",
-    "app/views/admin/blog/tags/edit.html.erb",
-    "app/views/admin/blog/tags/index.html.erb",
-    "app/views/admin/blog/tags/new.html.erb",
+    "app/views/admin/blog/tags/_form.html.haml",
+    "app/views/admin/blog/tags/_tag.html.haml",
+    "app/views/admin/blog/tags/edit.html.haml",
+    "app/views/admin/blog/tags/index.html.haml",
+    "app/views/admin/blog/tags/new.html.haml",
     "app/views/blog/comments/_comment.html.erb",
     "app/views/blog/comments/_disqus.html.erb",
     "app/views/blog/comments/_form.html.erb",
