@@ -1,7 +1,31 @@
 = form.text_field :title, :data => {:slugify => @post.new_record?}
 = form.text_field :slug, :data => {:slug => true}
+
+-content_for :javascript do
+  $(document).ready(function() {
+  $(".datetime").datetimepicker({
+  format: "yyyy-mm-dd hh:ii",
+  autoclose: true,
+  todayBtn: true,
+  });
+  });
+  
+-content_for :head do
+  :css
+    .datetime .add-on {
+    height: auto;
+    padding: 6px;
+    }
+
 - value = (@post.new_record? ? "" : @post.published_at.strftime("%Y-%m-%d %H:%M"))
-= form.text_field :published_at, :"data-datetime" => "true", :readonly => "", :value => value
+= form.element 'Published At' do
+  .input-append.date.datetime
+    = text_field_tag "post[published_at]", value, :readonly => ""
+    %div.add-on
+      %i.icon-remove
+    %span.add-on
+      %i.icon-calendar
+
 = form.text_field :author
 - if Blog::Tag.categories.present?
   = form.element 'Categories' do
