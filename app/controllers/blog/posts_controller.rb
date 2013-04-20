@@ -36,6 +36,9 @@ class Blog::PostsController < ApplicationController
     else
       Blog::Post.published.find(params[:id])
     end
+    @next = @post.next
+    @previous = @post.previous
+    
   rescue ActiveRecord::RecordNotFound
     if defined? ComfortableMexicanSofa
       render :cms_page => '/404', :status => 404

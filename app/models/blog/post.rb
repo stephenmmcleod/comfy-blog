@@ -54,6 +54,14 @@ class Blog::Post < ActiveRecord::Base
     @category_ids ||= self.tags.categories.inject({}){|h, c| h[c.id.to_s] = '1'; h}
   end
 
+  def next
+    Blog::Post.published.unscoped.order("published_at ASC").where("published_at > ?", published_at).first
+  end
+
+  def previous
+    Blog::Post.published.unscoped.order("published_at DESC").where("published_at < ?", published_at).first
+  end
+
 protected
 
   def set_slug
