@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc."]
-  s.date = "2013-04-20"
+  s.date = "2013-04-21"
   s.description = ""
   s.email = "oleg@twg.ca"
   s.extra_rdoc_files = [
@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
     "app/views/blog/comments/_disqus.html.erb",
     "app/views/blog/comments/_form.html.erb",
     "app/views/blog/comments/create.js.erb",
-    "app/views/blog/posts/_post.html.erb",
+    "app/views/blog/posts/_post.html.haml",
     "app/views/blog/posts/index.html.erb",
     "app/views/blog/posts/index.rss.builder",
     "app/views/blog/posts/show.html.erb",
