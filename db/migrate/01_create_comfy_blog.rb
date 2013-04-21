@@ -17,6 +17,7 @@ class CreateComfyBlog < ActiveRecord::Migration
       :name => 'index_blog_posts_on_published_year_month_slug'
     add_index :blog_posts, [:is_published, :created_at]
     add_index :blog_posts, :created_at
+    add_attachment :blog_posts, :image
     
     create_table :blog_comments do |t|
       t.integer :post_id,       :null => false

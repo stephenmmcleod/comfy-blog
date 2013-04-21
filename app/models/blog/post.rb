@@ -12,14 +12,14 @@ class Blog::Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
-  has_attached_file :image,
+
+  upload_options = (ComfyBlog.config.upload_options || {}).merge(
     :styles => {
       :thumb => "150x150#",
       :medium => "630x630>"
-    },
-    :storage => :s3, 
-    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml", 
-    :path => "/:style/:filename"
+    }
+  )
+  has_attached_file :image, upload_options
 
   # -- Validations ----------------------------------------------------------
   validates :title, :slug, :year, :month, :content,
@@ -28,7 +28,8 @@ class Blog::Post < ActiveRecord::Base
     :uniqueness => { :scope => [:year, :month] }
 
   attr_accessible :title, :slug, :year, :month, :content,
-    :author, :tag_names, :excerpt, :published_at, :is_published, :category_ids
+    :author, :tag_names, :excerpt, :published_at, :is_published, :category_ids,
+    :image
 
   # -- Scopes ---------------------------------------------------------------
   default_scope order('published_at DESC')

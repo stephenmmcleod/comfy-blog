@@ -33,6 +33,9 @@ module ComfyBlog
     
     # Comments can be fully handled by Disqus. Set this config to use it.
     attr_accessor :disqus_shortname
+
+    # Paperclip upload settings for photos
+    attr_accessor :upload_options
     
     # Configuration defaults
     def initialize
