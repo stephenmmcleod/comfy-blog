@@ -29,7 +29,7 @@ class Blog::Post < ActiveRecord::Base
 
   attr_accessible :title, :slug, :year, :month, :content,
     :author, :tag_names, :excerpt, :published_at, :is_published, :category_ids,
-    :image
+    :image, :remove_image
 
   # -- Scopes ---------------------------------------------------------------
   default_scope order('published_at DESC')
