@@ -27,7 +27,6 @@ module ComfyBlog::Routing
 
     Rails.application.routes.draw do
       scope options[:path], :module => :blog do
-      # namespace :blog, :path => options[:path] do
         get '/'                   => 'posts#index', :as => :blog_posts
         get 'tag/:tag'            => 'posts#index', :as => :tagged_blog_posts
         get 'category/:category'  => 'posts#index', :as => :categorized_blog_posts

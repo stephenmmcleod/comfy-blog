@@ -1,0 +1,14 @@
+.row.box
+  .one.column
+  .three.columns
+    =image_tag post.image.url(:thumb)
+  .seven.columns.content
+    .post
+      %h1= link_to(post.title, blog_post_path(post))
+      .date= post.created_at.strftime("%B %e %Y")
+      .content
+        %p
+          = post.excerpt.html_safe
+        =link_to "Read More →", blog_post_path(post)
+  .one.column
+

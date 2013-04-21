@@ -4,12 +4,22 @@ class Blog::Post < ActiveRecord::Base
 
   # -- Attributes -----------------------------------------------------------
   attr_accessor :tag_names,
-                :category_ids
+                :category_ids,
+                :remove_image
+
 
   # -- Relationships --------------------------------------------------------
   has_many :comments, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
+  has_attached_file :image,
+    :styles => {
+      :thumb => "150x150#",
+      :medium => "630x630>"
+    },
+    :storage => :s3, 
+    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml", 
+    :path => "/:style/:filename"
 
   # -- Validations ----------------------------------------------------------
   validates :title, :slug, :year, :month, :content,
@@ -36,11 +46,15 @@ class Blog::Post < ActiveRecord::Base
   scope :categorized_as, lambda { |tag|
     joins(:tags).where('blog_tags.name' => tag, 'blog_tags.is_category' => true)
   }
-
+  
   # -- Callbacks ------------------------------------------------------------
+
   before_validation :set_slug,
                     :set_published_at,
                     :set_date
+
+  before_save :clear_image
+
   after_save        :sync_tags,
                     :sync_categories
 
@@ -95,6 +109,12 @@ protected
       when 0
         self.taggings.for_categories.where(:tag_id => category_id).destroy_all
       end
+    end
+  end
+
+  def clear_image
+    if (self.remove_image == "1" && !self.image.dirty?)
+      self.image = nil 
     end
   end
 

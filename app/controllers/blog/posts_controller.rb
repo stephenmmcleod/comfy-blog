@@ -4,8 +4,10 @@ class Blog::PostsController < ApplicationController
   
   def index
     scope = if params[:tag]
+      @tag = params[:tag]
       Blog::Post.published.tagged_with(params[:tag])
     elsif params[:category]
+      @category = params[:category]
       Blog::Post.published.categorized_as(params[:category])
     elsif params[:year]
       scope = Blog::Post.published.for_year(params[:year])
@@ -38,7 +40,7 @@ class Blog::PostsController < ApplicationController
     end
     @next = @post.next
     @previous = @post.previous
-    
+
   rescue ActiveRecord::RecordNotFound
     if defined? ComfortableMexicanSofa
       render :cms_page => '/404', :status => 404
