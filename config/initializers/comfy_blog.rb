@@ -4,7 +4,7 @@ ComfyBlog.configure do |config|
   #   config.admin_controller = 'ApplicationController'
   
   # Just like CMS, photos are uploaded through Paperclip and can support filesystem or s3 storage.
-  #   config.upload_photo_options = { :storage => :filesystem }
+  #   config.upload_options = { :storage => :filesystem }
   
   # Form builder
   #   config.form_builder = 'ComfyBlog::FormBuilder'
