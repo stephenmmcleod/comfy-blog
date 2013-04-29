@@ -1,6 +1,7 @@
 
 .page-header
   = link_to 'Add new blog post', new_admin_blog_post_path, :class => 'btn pull-right'
+  = link_to 'View Comments', admin_blog_comments_path, :class => 'btn pull-right'
   = link_to 'Edit Tags', admin_blog_tags_path, :class => 'btn pull-right', :style => "margin-right: 10px;"
   %h2 Blog Posts
 
@@ -16,7 +17,6 @@
         %td.main
           .item-title
             = link_to post.title.titleize, edit_admin_blog_post_path(post)
-            / = render :partial => '/cms_admin/categories/categories', :object => post
           .item-meta
             = "Published #{time_ago_in_words(post.created_at)} ago"
             
