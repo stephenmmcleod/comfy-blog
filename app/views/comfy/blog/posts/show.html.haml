@@ -11,7 +11,7 @@
 
 .comments
   - @post.comments.published.each do |comment|
-    .comment
+    .comment{:id => dom_id(comment)}
       .author= comment.author
       .content= comment.content
   
